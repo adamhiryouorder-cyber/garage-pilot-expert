@@ -306,8 +306,27 @@
 
   #apropos { background: var(--dark); display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
   .about-img-wrap { position: relative; }
-  .about-img-main { width: 100%; aspect-ratio: 4/3; background: var(--dark3); border-radius: 4px; overflow: hidden; position: relative; }
-  .about-img-main img { width:100%; height:100%; object-fit:cover; display:block; background: var(--dark3); }
+ .about-img-main {
+  width: 100%;
+  min-height: 320px;
+  background: #0D0D0D;
+  border-radius: 4px;
+  overflow: visible;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+}
+
+.about-img-main img {
+  width: 100%;
+  height: auto;
+  max-height: 520px;
+  object-fit: contain;
+  display: block;
+  background: transparent;
+}
   .about-badge {
     position: absolute;
     bottom: -20px; right: -20px;
@@ -579,11 +598,6 @@
     .about-badge { position: static; margin-top: 1rem; width: 90px; height: 90px; }
     .about-badge-num { font-size: 1.3rem !important; }
   }
-  .image-container img {
-  max-width: 100%;
-  height: auto;
-  object-fit: contain;
-}
 </style>
 </head>
 <body>
