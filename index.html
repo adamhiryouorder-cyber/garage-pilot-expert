@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Garage Pilot'Expert – Carrosserie & Mécanique – La Courneuve</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --orange: #F5820A;
+    --orange-light: #FF9D2F;
+    --orange-dark: #C46500;
+    --black: #0D0D0D;
+    --dark: #141414;
+    --dark2: #1C1C1C;
+    --dark3: #252525;
+    --gray: #888;
+    --light: #F0F0F0;
+    --white: #FFFFFF;
+    --font-display: 'Bebas Neue', sans-serif;
+    --font-cond: 'Barlow Condensed', sans-serif;
+    --font-body: 'Barlow', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: var(--font-body);
+    overflow-x: hidden;
+  }
+
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--dark); }
+  ::-webkit-scrollbar-thumb { background: var(--orange); border-radius: 3px; }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 3rem;
+    height: 72px;
+    background: rgba(13,13,13,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(245,130,10,0.15);
+    transition: all .3s;
+  }
+  nav.scrolled { height: 60px; border-bottom-color: rgba(245,130,10,0.35); }
+  .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; min-width: 0; }
+  .nav-logo-img {
+    height: 48px; width: 48px;
+    object-fit: contain;
+    mix-blend-mode: screen;
+    filter: brightness(1.05);
+    transition: transform .3s;
+  }
+  .nav-logo:hover .nav-logo-img { transform: rotate(-5deg) scale(1.05); }
+  .nav-logo span {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    color: var(--white);
+    letter-spacing: 2px;
+    min-width: 0;
+  }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    color: var(--light);
+    text-decoration: none;
+    font-family: var(--font-cond);
+    font-size: 1rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    position: relative;
+    transition: color .2s;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute; bottom: -4px; left: 0;
+    width: 0; height: 2px;
+    background: var(--orange);
+    transition: width .3s;
+  }
+  .nav-links a:hover { color: var(--orange); }
+  .nav-links a:hover::after { width: 100%; }
+  .nav-cta {
+    background: var(--orange);
+    color: var(--black) !important;
+    padding: 8px 20px;
+    border-radius: 2px;
+    font-weight: 700 !important;
+    transition: background .2s, transform .2s !important;
+  }
+  .nav-cta:hover { background: var(--orange-light) !important; transform: translateY(-1px); }
+  .nav-cta::after { display: none !important; }
+  .hamburger {
+    display: none;
+    flex-direction: column; gap: 5px;
+    cursor: pointer; padding: 4px;
+  }
+  .hamburger span {
+    display: block; width: 26px; height: 2px;
+    background: var(--white); border-radius: 2px;
+    transition: all .3s;
+  }
+
+  #hero {
+    min-height: 100vh;
+    position: relative;
+    display: flex; align-items: center;
+    overflow: hidden;
+    background: var(--black);
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 60% 80% at 70% 50%, rgba(245,130,10,0.08) 0%, transparent 70%),
+      repeating-linear-gradient(90deg, transparent, transparent 80px, rgba(255,255,255,0.015) 80px, rgba(255,255,255,0.015) 81px),
+      repeating-linear-gradient(0deg, transparent, transparent 80px, rgba(255,255,255,0.015) 80px, rgba(255,255,255,0.015) 81px);
+  }
+  .hero-glow {
+    position: absolute;
+    width: 700px; height: 700px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(245,130,10,0.12) 0%, transparent 70%);
+    right: -100px; top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+  .hero-content {
+    position: relative; z-index: 2;
+    padding: 0 6rem;
+    max-width: 750px;
+    padding-top: 72px;
+    padding-bottom: 3rem;
+  }
+  .hero-eyebrow {
+    font-family: var(--font-cond);
+    font-size: 0.85rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 1rem;
+    display: flex; align-items: center; gap: 12px;
+    opacity: 0; animation: fadeUp .6s .2s forwards;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    display: inline-block; width: 40px; height: 2px;
+    background: var(--orange);
+  }
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(4rem, 8vw, 8rem);
+    line-height: .95;
+    letter-spacing: 2px;
+    opacity: 0; animation: fadeUp .7s .35s forwards;
+  }
+  .hero-title .accent { color: var(--orange); display: block; }
+  .hero-sub {
+    font-size: 1.15rem;
+    font-weight: 300;
+    color: #aaa;
+    margin: 1.5rem 0 2.5rem;
+    max-width: 500px;
+    line-height: 1.7;
+    opacity: 0; animation: fadeUp .7s .5s forwards;
+  }
+  .hero-sub strong { color: var(--white); font-weight: 600; }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; opacity: 0; animation: fadeUp .7s .65s forwards; }
+  .btn-primary,
+  .btn-dark,
+  .btn-outline {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: var(--font-cond);
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 14px 32px;
+    text-decoration: none;
+    border-radius: 2px;
+    transition: all .25s;
+    cursor: pointer;
+  }
+  .btn-primary {
+    background: var(--orange);
+    color: var(--black);
+    border: none;
+  }
+  .btn-primary:hover {
+    background: var(--orange-light);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(245,130,10,0.4);
+  }
+  .btn-outline {
+    background: transparent;
+    color: var(--white);
+    border: 1.5px solid rgba(255,255,255,0.3);
+  }
+  .btn-outline:hover { border-color: var(--orange); color: var(--orange); transform: translateY(-2px); }
+  .btn-dark {
+    background: var(--black);
+    color: var(--white);
+    border: none;
+  }
+  .btn-dark:hover { background: var(--dark2); transform: translateY(-2px); }
+
+  .hero-stats { position: relative; display: flex; gap: 3rem; margin-top: 3rem; opacity: 0; animation: fadeUp .7s .8s forwards; }
+  .stat-num { font-family: var(--font-display); font-size: 2.8rem; color: var(--orange); line-height: 1; }
+  .stat-label { font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; color: var(--gray); margin-top: 4px; }
+  .hero-scroll {
+    position: absolute;
+    right: 3rem; bottom: 3rem;
+    writing-mode: vertical-lr;
+    font-family: var(--font-cond);
+    font-size: 0.75rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gray);
+    display: flex; align-items: center; gap: 12px;
+    opacity: 0; animation: fadeIn 1s 1.2s forwards;
+  }
+  .hero-scroll::after {
+    content: '';
+    display: block; width: 1px; height: 60px;
+    background: linear-gradient(to bottom, var(--orange), transparent);
+  }
+
+  section { padding: 100px 6rem; }
+  .section-tag {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: var(--font-cond);
+    font-size: 0.8rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 1rem;
+  }
+  .section-tag::before { content: ''; width: 30px; height: 2px; background: var(--orange); }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    line-height: 1;
+    letter-spacing: 1px;
+    margin-bottom: 1rem;
+  }
+
+  #services-band { padding: 0; background: var(--orange); overflow: hidden; }
+  .services-band-inner { display: flex; }
+  .service-card {
+    flex: 1;
+    padding: 3rem 2.5rem;
+    background: var(--dark2);
+    border-right: 1px solid rgba(255,255,255,0.05);
+    text-decoration: none;
+    transition: all .3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .service-card:last-child { border-right: none; }
+  .service-card::before {
+    content: '';
+    position: absolute; bottom: 0; left: 0;
+    width: 100%; height: 3px;
+    background: var(--orange);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform .3s;
+  }
+  .service-card:hover::before { transform: scaleX(1); }
+  .service-card:hover { background: var(--dark3); transform: translateY(-4px); }
+  .service-icon { font-size: 2.4rem; margin-bottom: 1rem; display: block; color: var(--orange); line-height: 1; }
+  .service-icon svg { stroke: var(--orange); display: block; }
+  .service-name { font-family: var(--font-cond); font-size: 1.1rem; letter-spacing: 2px; text-transform: uppercase; color: var(--white); margin-bottom: .5rem; }
+  .service-desc { font-size: 0.85rem; color: var(--gray); line-height: 1.5; }
+
+  .reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .review-card {
+    background: var(--dark2);
+    border-radius: 4px;
+    padding: 2rem;
+    border-top: 3px solid var(--orange);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    transition: transform .25s;
+  }
+  .review-card:hover { transform: translateY(-4px); }
+  .review-stars { color: var(--orange); font-size: 1rem; letter-spacing: 2px; }
+  .review-text { font-size: 0.92rem; color: #bbb; line-height: 1.7; flex: 1; font-style: italic; }
+  .review-author { display: flex; align-items: center; gap: 12px; margin-top: .5rem; }
+  .review-avatar {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: var(--orange);
+    color: var(--black);
+    font-family: var(--font-cond);
+    font-size: 0.85rem;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .review-name { font-family: var(--font-cond); font-size: 0.95rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--white); }
+  .review-service { font-size: 0.78rem; color: var(--gray); margin-top: 2px; }
+
+  #apropos { background: var(--dark); display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+  .about-img-wrap { position: relative; }
+  .about-img-main { width: 100%; aspect-ratio: 4/3; background: var(--dark3); border-radius: 4px; overflow: hidden; position: relative; }
+  .about-img-main img { width:100%; height:100%; object-fit:cover; display:block; background: var(--dark3); }
+  .about-badge {
+    position: absolute;
+    bottom: -20px; right: -20px;
+    width: 120px; height: 120px;
+    border-radius: 50%;
+    background: var(--orange);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    box-shadow: 0 0 40px rgba(245,130,10,0.4);
+  }
+  .about-badge-num { font-family: var(--font-display); font-size: 2.2rem; color: var(--black); line-height: 1; }
+  .about-badge-text { font-family: var(--font-cond); font-size: 0.65rem; letter-spacing: 1px; text-transform: uppercase; color: var(--black); font-weight: 700; text-align: center; line-height: 1.2; }
+  .about-body { font-size: 1rem; color: #bbb; line-height: 1.8; margin-bottom: 1.5rem; }
+  .about-body strong { color: var(--white); }
+  .values-list { display: flex; flex-direction: column; gap: .75rem; margin-bottom: 2rem; }
+  .value-item { display: flex; align-items: center; gap: 12px; font-family: var(--font-cond); font-size: 0.95rem; letter-spacing: 1px; text-transform: uppercase; }
+  .value-item::before { content: '▸'; color: var(--orange); font-size: 1rem; }
+
+  #avantapres { background: var(--black); }
+  .avantapres-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3rem; flex-wrap: wrap; gap: 1rem; }
+  .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .gallery-item { position: relative; aspect-ratio: 4/3; overflow: hidden; border-radius: 4px; cursor: pointer; background: var(--dark2); }
+  .gallery-item img { width:100%; height:100%; object-fit:cover; display:block; background: var(--dark2); }
+  .gallery-item:first-child { grid-column: span 2; grid-row: span 2; aspect-ratio: auto; }
+  .gallery-placeholder {
+    width: 100%; height: 100%; min-height: 200px;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 8px;
+    background: linear-gradient(135deg, var(--dark2) 0%, var(--dark3) 100%);
+    border: 1.5px dashed rgba(245,130,10,0.25);
+    font-family: var(--font-cond);
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gray);
+    text-align: center;
+    padding: 1.5rem;
+    transition: all .3s;
+  }
+  .gallery-item:hover .gallery-placeholder { border-color: rgba(245,130,10,0.6); background: rgba(245,130,10,0.05); }
+  .gallery-tag {
+    position: absolute; top: 12px; left: 12px;
+    background: var(--orange);
+    color: var(--black);
+    font-family: var(--font-cond);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 2px;
+  }
+
+  .service-page { padding: 120px 6rem 100px; min-height: 100vh; display: flex; flex-direction: column; }
+  .sp-hero { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; margin-bottom: 80px; }
+  .sp-img {
+    aspect-ratio: 4/3;
+    border-radius: 4px;
+    overflow: hidden;
+    background: var(--dark2);
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 12px;
+    border: 2px dashed rgba(245,130,10,0.25);
+    color: var(--gray);
+    font-family: var(--font-cond);
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 2rem;
+  }
+  .sp-body { font-size: 1rem; color: #bbb; line-height: 1.8; margin-bottom: 2rem; }
+  .sp-features { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 2.5rem; }
+  .sp-feature { background: var(--dark2); border-left: 3px solid var(--orange); padding: 1rem 1.2rem; border-radius: 2px; font-family: var(--font-cond); font-size: 0.9rem; letter-spacing: 1px; text-transform: uppercase; color: var(--light); }
+  .sp-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 40px; }
+  .sp-card { background: var(--dark2); padding: 2rem; border-radius: 4px; border-top: 3px solid var(--orange); transition: transform .25s; }
+  .sp-card:hover { transform: translateY(-4px); }
+  .sp-card-icon { width: 36px; height: 3px; background: var(--orange); border-radius: 2px; margin-bottom: 1rem; }
+  .sp-card-title { font-family: var(--font-cond); font-size: 1rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: .5rem; }
+  .sp-card-text { font-size: 0.9rem; color: #999; line-height: 1.6; }
+
+  .cta-band { background: var(--orange); padding: 60px 6rem; display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap; }
+  .cta-band-text .cta-title { font-family: var(--font-display); font-size: clamp(1.8rem, 4vw, 3rem); color: var(--black); letter-spacing: 1px; }
+  .cta-band-text .cta-sub { font-size: 1rem; color: rgba(0,0,0,0.7); margin-top: .4rem; }
+
+  #contact { background: var(--dark); display: grid; grid-template-columns: 1fr 1.2fr; gap: 80px; align-items: start; }
+  .contact-item { display: flex; gap: 16px; margin-bottom: 2rem; align-items: flex-start; }
+  .contact-icon {
+    width: 48px; height: 48px;
+    border-radius: 2px;
+    background: rgba(245,130,10,0.1);
+    border: 1px solid rgba(245,130,10,0.3);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+  }
+  .contact-item-title { font-family: var(--font-cond); font-size: 0.8rem; letter-spacing: 3px; text-transform: uppercase; color: var(--orange); margin-bottom: 4px; }
+  .contact-item-text { font-size: 0.95rem; color: #bbb; line-height: 1.5; }
+  .contact-item-text a { color: var(--white); text-decoration: none; transition: color .2s; }
+  .contact-item-text a:hover { color: var(--orange); }
+  .map-placeholder { width: 100%; height: 220px; margin-top: 2rem; border-radius: 4px; overflow: hidden; border: 1px solid rgba(245,130,10,0.2); display:flex; align-items:center; justify-content:center; color:#999; background:#1b1b1b; }
+  .form-title { font-family: var(--font-display); font-size: 2rem; letter-spacing: 1px; margin-bottom: 2rem; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+  .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 1rem; }
+  .form-group label { font-family: var(--font-cond); font-size: 0.78rem; letter-spacing: 2px; text-transform: uppercase; color: var(--gray); }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    background: var(--dark3);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: var(--white);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    padding: 12px 16px;
+    border-radius: 2px;
+    outline: none;
+    transition: border-color .2s;
+    width: 100%;
+  }
+  .form-group select option { background: var(--dark3); }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus { border-color: var(--orange); }
+  .form-group textarea { resize: vertical; min-height: 120px; }
+  .form-submit {
+    width: 100%;
+    background: var(--orange);
+    color: var(--black);
+    font-family: var(--font-cond);
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    padding: 16px;
+    border: none; border-radius: 2px;
+    cursor: pointer;
+    transition: all .25s;
+    margin-top: .5rem;
+  }
+  .form-submit:hover { background: var(--orange-light); box-shadow: 0 8px 30px rgba(245,130,10,0.35); }
+  .form-success {
+    display: none;
+    text-align: center;
+    padding: 2rem;
+    background: rgba(245,130,10,0.1);
+    border: 1px solid rgba(245,130,10,0.3);
+    border-radius: 4px;
+  }
+  .form-success p { color: var(--light); margin-top: 1rem; font-size: 1rem; }
+  .form-error {
+    display: none;
+    text-align: center;
+    padding: 1rem;
+    margin-top: 1rem;
+    background: rgba(255,80,80,0.08);
+    border: 1px solid rgba(255,80,80,0.25);
+    border-radius: 4px;
+    color: #ffb3b3;
+    font-size: .95rem;
+  }
+
+  footer { background: var(--black); border-top: 1px solid rgba(255,255,255,0.06); padding: 60px 6rem 30px; }
+  .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.06); margin-bottom: 30px; }
+  .footer-brand-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; }
+  .footer-brand-logo img { height: 44px; }
+  .footer-brand p { font-size: 0.9rem; color: var(--gray); line-height: 1.7; max-width: 280px; }
+  .footer-col-title { font-family: var(--font-cond); font-size: 0.8rem; letter-spacing: 3px; text-transform: uppercase; color: var(--orange); margin-bottom: 1.2rem; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: .7rem; }
+  .footer-col ul li a { font-size: 0.9rem; color: var(--gray); text-decoration: none; transition: color .2s; }
+  .footer-col ul li a:hover { color: var(--white); }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  .footer-copy { font-size: 0.8rem; color: #555; }
+  .footer-copy strong { color: var(--orange); }
+
+  .page-view { display: none; padding-top: 72px; }
+  .page-view.active { display: block; }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity .6s ease, transform .6s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  html, body { width: 100%; max-width: 100%; overflow-x: hidden; }
+  img, svg, video, canvas { max-width: 100%; height: auto; }
+
+  @media (max-width: 1024px) {
+    section { padding: 80px 3rem; }
+    #hero .hero-content { padding: 0 3rem; padding-top: 72px; }
+    .hero-scroll { display: none; }
+    nav { padding: 0 2rem; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .nav-mobile-open .nav-links {
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 72px; left: 0; right: 0;
+      background: var(--dark);
+      padding: 2rem;
+      gap: 1.5rem;
+      border-bottom: 1px solid rgba(245,130,10,0.2);
+      align-items: flex-start;
+      z-index: 999;
+    }
+    #apropos, #contact, .sp-hero { grid-template-columns: 1fr; gap: 40px; }
+    .footer-top { grid-template-columns: 1fr 1fr; }
+    .services-band-inner { flex-wrap: wrap; }
+    .service-card { flex: 1 1 45%; }
+    .gallery-grid { grid-template-columns: 1fr 1fr; }
+    .gallery-item:first-child { grid-column: 1; grid-row: 1; aspect-ratio: 4/3; }
+    .reviews-grid { grid-template-columns: 1fr 1fr; }
+    .sp-grid { grid-template-columns: 1fr 1fr; }
+    .cta-band { padding: 40px 3rem; }
+  }
+
+  @media (max-width: 768px) {
+    nav { width: 100%; max-width: 100vw; padding: 0 1rem; overflow: hidden; }
+    .nav-logo { max-width: calc(100vw - 88px); overflow: hidden; }
+    .nav-logo-img { width: 36px !important; height: 36px !important; max-width: 36px !important; flex: 0 0 36px; object-fit: contain; }
+    .nav-logo span { max-width: 100%; font-size: .95rem !important; letter-spacing: .5px !important; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .page-view { width: 100%; overflow: visible !important; }
+.page-view.active { display: block !important; }
+#page-home { width: 100%; overflow: visible !important; }
+    section, .service-page { width: 100%; padding-left: 1rem !important; padding-right: 1rem !important; overflow-x: hidden; }
+    #hero { min-height: auto; width: 100%; }
+    .hero-content { width: 100% !important; max-width: 100% !important; padding-left: 1rem !important; padding-right: 1rem !important; padding-top: 88px !important; padding-bottom: 2rem !important; }
+    .hero-eyebrow { width: 100%; font-size: .7rem; letter-spacing: 3px; flex-wrap: wrap; gap: 10px; line-height: 1.3; }
+    .hero-title { width: 100%; max-width: 100%; font-size: clamp(2.2rem, 9vw, 3.2rem) !important; letter-spacing: 1px !important; line-height: .98 !important; word-break: break-word; overflow-wrap: anywhere; }
+    .hero-sub { width: 100%; max-width: 100%; font-size: 1rem !important; line-height: 1.6; margin-right: 0; }
+    .hero-btns, .hero-stats, .services-band-inner, .sp-hero, .sp-grid, .reviews-grid, #apropos, #contact, .footer-top, .footer-bottom, .cta-band { width: 100%; max-width: 100%; }
+    .hero-btns { flex-direction: column; }
+    .hero-btns .btn-primary, .hero-btns .btn-outline, .cta-band .btn-dark { width: 100%; max-width: 100%; justify-content: center; text-align: center; white-space: normal; }
+    .hero-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .75rem !important; }
+    .stat-num { font-size: 1.8rem !important; }
+    .service-page { padding-top: 96px !important; padding-bottom: 56px !important; min-height: auto; }
+    .sp-hero { grid-template-columns: 1fr !important; gap: 20px !important; margin-bottom: 32px !important; }
+    .sp-img { display: none !important; }
+    .sp-grid, .reviews-grid, .gallery-grid { grid-template-columns: 1fr !important; }
+    .services-band-inner { display: flex !important; flex-direction: column !important; width: 100% !important; }
+    .service-card { width: 100% !important; min-width: 0 !important; border-right: none !important; border-bottom: 1px solid rgba(255,255,255,0.05); transform: none !important; padding-left:1rem; padding-right:1rem; }
+    .service-card:last-child { border-bottom: none; }
+    .avantapres-header { display:grid; grid-template-columns:1fr !important; }
+    .avantapres-header > p { text-align: left !important; max-width: 100% !important; }
+    #agendaModal > div { width: calc(100% - 24px) !important; max-width: none !important; padding: 1.25rem !important; max-height: 88vh; overflow: auto; }
+    #agendaModal form > div[style*="grid-template-columns:1fr 1fr"] { grid-template-columns: 1fr !important; }
+    .reveal, #apropos, #avantapres, #avis, #contact, #apropos .about-img-wrap, #apropos .about-text, #avantapres .avantapres-header, #avantapres .gallery-grid, #avis > div, #contact .contact-info, #contact .contact-form {
+      opacity: 1 !important; visibility: visible !important; transform: none !important; display: block !important;
+    }
+  }
+
+  @media (max-width: 600px) {
+    section { padding: 60px 1.5rem; }
+    nav { padding: 0 1.5rem; }
+    .hero-content { padding: 0 1.5rem !important; }
+    .hero-stats { gap: 1.5rem; }
+    .footer-top, .form-row, .reviews-grid, .sp-grid, .gallery-grid { grid-template-columns: 1fr; }
+    .cta-band { padding: 40px 1.5rem; text-align: center; }
+    .footer-bottom { flex-direction: column; text-align: center; }
+  }
+
+  @media (max-width: 480px) {
+    .nav-logo span { display: none; }
+    .hero-title { font-size: clamp(2rem, 8.5vw, 2.8rem) !important; }
+    .hero-eyebrow { letter-spacing: 2px; }
+    .hero-sub { font-size: .95rem !important; }
+    .hero-stats { grid-template-columns: 1fr !important; gap: 1rem !important; }
+    .about-img-main { aspect-ratio: 1 / 1; }
+    .about-badge { position: static; margin-top: 1rem; width: 90px; height: 90px; }
+    .about-badge-num { font-size: 1.3rem !important; }
+  }
+</style>
+</head>
+<body>
+<!-- Images locales à placer dans le même dossier que ce fichier :
+     - logo.png
+     - image1.jpg
+     - image2.jpg
+     - image3.jpg
+     - image4.jpg
+
+     EmailJS à configurer dans le script du bas :
+     - EMAILJS_SERVICE_ID
+     - EMAILJS_TEMPLATE_INTERNAL
+     - EMAILJS_TEMPLATE_CLIENT -->
+
+<nav id="mainNav">
+  <a class="nav-logo" href="#" onclick="showPage('home'); return false;">
+    <img class="nav-logo-img" src="logo.png" alt="Garage Pilot'Expert">
+    <span>Garage Pilot'Expert</span>
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#" onclick="showPage('home'); return false;">Accueil</a></li>
+    <li><a href="#" onclick="showPage('carrosserie'); return false;">Carrosserie</a></li>
+    <li><a href="#" onclick="showPage('mecanique'); return false;">Mécanique</a></li>
+    <li><a href="#" onclick="showPage('achatvente'); return false;">Achat / Vente</a></li>
+    <li><a href="#" onclick="showPage('parebrise'); return false;">Pare-brise</a></li>
+    <li><a href="#" onclick="showPage('pieces'); return false;">Pièces Auto</a></li>
+    <li><a href="#contact" onclick="showPage('home'); setTimeout(()=>{document.getElementById('contact').scrollIntoView({behavior:'smooth'})},100); return false;" class="nav-cta">Contact</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<div class="page-view active" id="page-home">
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-glow"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">La Courneuve – Plus de 20 ans d'expertise collective</p>
+      <h1 class="hero-title">GARAGE PILOT'EXPERT <span class="accent">AUTOMOBILE</span></h1>
+      <p class="hero-sub"><strong>Carrosserie, mécanique, pare-brise, achat/vente.</strong> Garage Pilot'Expert met son expertise au service de votre véhicule avec qualité, confiance et transparence.</p>
+      <div class="hero-btns">
+        <button class="btn-primary" onclick="openAgenda()">
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" width="18" height="18"><rect x="2" y="3" width="16" height="16" rx="2"></rect><path d="M13 1v4M7 1v4M2 8h16"></path><path d="M6 12h.01M10 12h.01M14 12h.01M6 16h.01M10 16h.01"></path></svg>
+          &nbsp;RDV au Garage Pilot'Expert
+        </button>
+        <a href="#" class="btn-outline" onclick="document.getElementById('services-band').scrollIntoView({behavior:'smooth'}); return false;">Nos services ↓</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item"><div class="stat-num">20+</div><div class="stat-label">Ans d'expérience</div></div>
+        <div class="stat-item"><div class="stat-num">5</div><div class="stat-label">Services</div></div>
+        <div class="stat-item"><div class="stat-num">100%</div><div class="stat-label">Satisfaction</div></div>
+      </div>
+    </div>
+    <div class="hero-scroll">Découvrir</div>
+  </section>
+
+  <div id="services-band">
+    <div class="services-band-inner">
+      <a class="service-card" href="#" onclick="showPage('carrosserie'); return false;"><span class="service-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" width="36" height="36"><path d="M4 20l4-10h16l4 10"></path><rect x="2" y="20" width="28" height="7" rx="2"></rect><circle cx="8" cy="27" r="2"></circle><circle cx="24" cy="27" r="2"></circle><path d="M9 10l2-4h10l2 4"></path></svg></span><div class="service-name">Carrosserie</div><div class="service-desc">Débosselage, peinture, remise en état. Résultat impeccable garanti.</div></a>
+      <a class="service-card" href="#" onclick="showPage('mecanique'); return false;"><span class="service-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" width="36" height="36"><circle cx="16" cy="16" r="4"></circle><path d="M16 2v4M16 26v4M2 16h4M26 16h4M6.34 6.34l2.83 2.83M22.83 22.83l2.83 2.83M6.34 25.66l2.83-2.83M22.83 9.17l2.83-2.83"></path></svg></span><div class="service-name">Mécanique</div><div class="service-desc">Entretien, révision, réparation. Toutes marques, diagnostic expert.</div></a>
+      <a class="service-card" href="#" onclick="showPage('achatvente'); return false;"><span class="service-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" width="36" height="36"><path d="M3 18l3-8h20l3 8"></path><rect x="2" y="18" width="28" height="7" rx="2"></rect><circle cx="9" cy="25" r="2"></circle><circle cx="23" cy="25" r="2"></circle><path d="M10 14h12M13 11l-2 3M19 11l2 3"></path></svg></span><div class="service-name">Achat / Vente</div><div class="service-desc">Reprise, véhicules d'occasion sélectionnés avec soin.</div></a>
+      <a class="service-card" href="#" onclick="showPage('parebrise'); return false;"><span class="service-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" width="36" height="36"><rect x="4" y="8" width="24" height="17" rx="3"></rect><path d="M4 14h24M4 19h24M10 8v17M22 8v17"></path></svg></span><div class="service-name">Pare-brise</div><div class="service-desc">Remplacement & réparation rapide, prise en charge assurance.</div></a>
+      <a class="service-card" href="#" onclick="showPage('pieces'); return false;"><span class="service-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" width="36" height="36"><path d="M20 4a4 4 0 0 0-4 4c0 .7.2 1.4.5 2L4 22l2 6 6-2 12.5-12.5c.6.3 1.3.5 2 .5a4 4 0 0 0 0-8 4 4 0 0 0-2.2.7L22 5a4 4 0 0 0-2-.9z"></path><circle cx="7" cy="25" r="1.5" fill="currentColor"></circle></svg></span><div class="service-name">Pièces Auto</div><div class="service-desc">Pièces d'origine et équivalent, montage sur place disponible.</div></a>
+    </div>
+  </div>
+
+  <section id="apropos">
+    <div class="about-img-wrap reveal">
+      <div class="about-img-main" style="min-height:320px;"><img src="image1.jpg" alt="Garage Pilot'Expert"></div>
+      <div class="about-badge"><div class="about-badge-num">20+</div><div class="about-badge-text">ans d'expertise</div></div>
+    </div>
+    <div class="about-text reveal" style="transition-delay:.15s">
+      <span class="section-tag">Notre garage</span>
+      <h2 class="section-title">UNE ÉQUIPE<br>QUI VOUS FAIT<br><span style="color:var(--orange)">CONFIANCE</span></h2>
+      <p class="about-body">Garage Pilot'Expert réunit une équipe de professionnels avec plus de <strong>20 ans d'expérience cumulée</strong> dans la carrosserie et la mécanique automobile. Des experts passionnés, formés sur le terrain, qui mettent tout leur savoir-faire au service de votre véhicule.</p>
+      <p class="about-body">Nous croyons en la <strong>transparence totale</strong> : devis clair, tarifs honnêtes, travaux expliqués. Chaque intervention est réalisée dans les règles de l'art, avec des <strong>pièces de qualité</strong> et un suivi rigoureux.</p>
+      <div class="values-list">
+        <div class="value-item">Qualité artisanale certifiée</div>
+        <div class="value-item">Devis gratuit et sans engagement</div>
+        <div class="value-item">Prise en charge assurance</div>
+        <div class="value-item">Toutes marques, toutes motorisations</div>
+        <div class="value-item">+20 ans d'expérience dans l'équipe</div>
+      </div>
+      <button class="btn-primary" onclick="openAgenda()">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" width="18" height="18"><rect x="2" y="3" width="16" height="16" rx="2"></rect><path d="M13 1v4M7 1v4M2 8h16"></path><path d="M6 12h.01M10 12h.01M14 12h.01M6 16h.01M10 16h.01"></path></svg>
+        &nbsp;RDV au Garage Pilot'Expert
+      </button>
+    </div>
+  </section>
+
+  <section id="avantapres" style="padding-top:80px;padding-bottom:80px;">
+    <div class="avantapres-header reveal">
+      <div>
+        <span class="section-tag">Nos réalisations</span>
+        <h2 class="section-title">AVANT &amp; <span style="color:var(--orange)">APRÈS</span></h2>
+      </div>
+      <p style="color:#777;font-size:.9rem;max-width:320px;text-align:right;line-height:1.6;">Chaque véhicule repart comme neuf.<br>La preuve en images.</p>
+    </div>
+    <div class="gallery-grid reveal">
+      <div class="gallery-item"><img src="image2.jpg" alt="Avant/Après Porsche"><div class="gallery-tag">Carrosserie</div></div>
+      <div class="gallery-item"><img src="image3.jpg" alt="Avant/Après BMW"><div class="gallery-tag">Pare-choc</div></div>
+      <div class="gallery-item"><img src="image4.jpg" alt="Avant/Après Toyota"><div class="gallery-tag">Peinture</div></div>
+      <div class="gallery-item"><div class="gallery-placeholder"><svg viewBox="0 0 48 36" fill="none" stroke="rgba(245,130,10,0.35)" stroke-width="1.2" width="40" height="30"><rect x="2" y="6" width="44" height="28" rx="3"></rect><circle cx="24" cy="20" r="8"></circle><circle cx="24" cy="20" r="4"></circle><rect x="16" y="2" width="16" height="6" rx="2"></rect></svg>Débosselage aile<br><small style="color:#555">Avant / Après</small></div><div class="gallery-tag">Débosselage</div></div>
+      <div class="gallery-item"><div class="gallery-placeholder"><svg viewBox="0 0 48 36" fill="none" stroke="rgba(245,130,10,0.35)" stroke-width="1.2" width="40" height="30"><rect x="2" y="6" width="44" height="28" rx="3"></rect><circle cx="24" cy="20" r="8"></circle><circle cx="24" cy="20" r="4"></circle><rect x="16" y="2" width="16" height="6" rx="2"></rect></svg>Remplacement pare-brise<br><small style="color:#555">Avant / Après</small></div><div class="gallery-tag">Pare-brise</div></div>
+    </div>
+  </section>
+
+  <section id="avis" style="background:var(--dark);padding-top:80px;padding-bottom:80px;">
+    <div class="reveal" style="margin-bottom:3rem;"><span class="section-tag">Ce qu'ils disent</span><h2 class="section-title">AVIS DE NOS <span style="color:var(--orange)">CLIENTS</span></h2></div>
+    <div class="reviews-grid reveal">
+      <div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">Très satisfait de la prestation. Ma voiture avait un choc à l'avant assez important, le résultat est impeccable, on ne voit absolument plus rien. Équipe sérieuse et accueillante, délai respecté.</p><div class="review-author"><div class="review-avatar">KA</div><div><div class="review-name">Karim A.</div><div class="review-service">Carrosserie – Remise en état avant</div></div></div></div>
+      <div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">Mon pare-brise a été remplacé rapidement, tout a été géré avec mon assurance sans que j'aie à me soucier de quoi que ce soit. Je recommande vivement ce garage pour leur professionnalisme.</p><div class="review-author"><div class="review-avatar">SB</div><div><div class="review-name">Sophie B.</div><div class="review-service">Remplacement pare-brise</div></div></div></div>
+      <div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">J'ai confié ma voiture pour une révision complète. Tarif correct, devis clair avant le début des travaux, et surtout les mécaniciens prennent le temps d'expliquer ce qu'ils ont fait. À recommander sans hésiter.</p><div class="review-author"><div class="review-avatar">ML</div><div><div class="review-name">Mohamed L.</div><div class="review-service">Révision complète</div></div></div></div>
+      <div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">Excellent garage, j'ai acheté un véhicule d'occasion ici. Le contrôle réalisé avant la vente était complet et honnête. Je me suis senti bien conseillé, sans pression. Très bonne expérience.</p><div class="review-author"><div class="review-avatar">TN</div><div><div class="review-name">Thierry N.</div><div class="review-service">Achat véhicule d'occasion</div></div></div></div>
+      <div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">Un pneu crevé en urgence, ils m'ont pris en charge immédiatement. Pneu changé en 30 minutes, prix honnête. C'est rare de trouver un garage aussi réactif et disponible. Merci à toute l'équipe !</p><div class="review-author"><div class="review-avatar">FD</div><div><div class="review-name">Fatima D.</div><div class="review-service">Pneu urgent – Pièces auto</div></div></div></div>
+      <div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">Travail de qualité sur ma carrosserie. Je suis passé plusieurs fois pour différentes interventions, toujours le même sérieux et la même qualité. Le garage Pilote est devenu mon garage de confiance.</p><div class="review-author"><div class="review-avatar">JR</div><div><div class="review-name">Jean-Pierre R.</div><div class="review-service">Client fidèle</div></div></div></div>
+    </div>
+  </section>
+
+  <div class="cta-band reveal">
+    <div class="cta-band-text"><div class="cta-title">DEVIS GRATUIT EN 24H</div><p class="cta-sub">Contactez-nous, notre équipe vous répond rapidement.</p></div>
+    <button class="btn-dark" onclick="openAgenda()"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" width="18" height="18"><rect x="2" y="3" width="16" height="16" rx="2"></rect><path d="M13 1v4M7 1v4M2 8h16"></path></svg>&nbsp;RDV au Garage Pilot'Expert</button>
+  </div>
+
+  <section id="contact">
+    <div class="contact-info reveal">
+      <span class="section-tag">Nous trouver</span>
+      <h2 class="section-title">VENEZ NOUS<br><span style="color:var(--orange)">RENDRE VISITE</span></h2>
+      <div class="contact-item"><div class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="1.8" width="22" height="22"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"></path><circle cx="12" cy="9" r="2.5"></circle></svg></div><div><div class="contact-item-title">Adresse</div><div class="contact-item-text">57 Avenue Jean Mermoz<br>93120 La Courneuve</div></div></div>
+      <div class="contact-item"><div class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="1.8" width="22" height="22"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"></path></svg></div><div><div class="contact-item-title">Téléphone</div><div class="contact-item-text"><a href="tel:+33148380000">01 48 38 00 00</a></div></div></div>
+      <div class="contact-item"><div class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="1.8" width="22" height="22"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="M2 7l10 7 10-7"></path></svg></div><div><div class="contact-item-title">Email</div><div class="contact-item-text"><a href="mailto:contact@garagepilotexpert.fr">contact@garagepilotexpert.fr</a></div></div></div>
+      <div class="contact-item"><div class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="1.8" width="22" height="22"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 3"></path></svg></div><div><div class="contact-item-title">Horaires</div><div class="contact-item-text">Lun – Ven : 8h00 – 18h30<br>Samedi : 9h00 – 13h00<br>Dimanche : Fermé</div></div></div>
+      <div class="map-placeholder"><div class="map-fallback">57 Avenue Jean Mermoz, 93120 La Courneuve</div></div>
+    </div>
+
+    <div class="contact-form reveal" style="transition-delay:.2s">
+      <div class="form-title">ÉCRIVEZ-NOUS</div>
+      <form id="contactForm" onsubmit="submitForm(event)">
+        <input type="hidden" name="name">
+        <input type="hidden" name="date" value="">
+        <input type="hidden" name="time" value="">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Prénom</label>
+            <input type="text" name="firstname" placeholder="Jean" required>
+          </div>
+          <div class="form-group">
+            <label>Nom</label>
+            <input type="text" name="lastname" placeholder="Dupont" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" name="email" placeholder="jean.dupont@email.com" required>
+        </div>
+        <div class="form-group">
+          <label>Téléphone</label>
+          <input type="tel" name="phone" placeholder="06 XX XX XX XX">
+        </div>
+        <div class="form-group">
+          <label>Service concerné</label>
+          <select name="service">
+            <option value="">-- Choisir un service --</option>
+            <option>Carrosserie</option>
+            <option>Mécanique</option>
+            <option>Achat / Vente</option>
+            <option>Pare-brise</option>
+            <option>Pièces Auto</option>
+            <option>Autre</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Votre message</label>
+          <textarea name="message" placeholder="Décrivez votre demande, le type de véhicule, la nature de la panne…" required></textarea>
+        </div>
+        <button type="submit" class="form-submit">Envoyer ma demande →</button>
+      </form>
+      <div class="form-success" id="formSuccess"><div class="success-icon">✅</div><p>Merci pour votre message !<br>Nous vous recontacterons dans les 24h.</p></div>
+      <div class="form-error" id="formError">Une erreur est survenue pendant l'envoi. Vérifie les identifiants EmailJS puis réessaie.</div>
+    </div>
+  </section>
+</div>
+
+<div class="page-view" id="page-carrosserie">
+  <div class="service-page" style="background:var(--black)">
+    <div class="sp-hero">
+      <div class="sp-content"><span class="section-tag">Service</span><h1 class="section-title">CARROS&shy;SERIE</h1><p class="sp-body">Notre atelier de carrosserie dispose de l'équipement le plus moderne pour remettre votre véhicule dans un état impeccable. Qu'il s'agisse d'un léger accrochage ou d'une réparation complète après sinistre, notre équipe expérimentée intervient avec précision et passion.</p><p class="sp-body">Nous travaillons avec des peintures de haute qualité, des teintes parfaitement harmonisées par spectrophotomètre. Chaque réparation est garantie et réalisée dans les règles de l'art.</p><div class="sp-features"><div class="sp-feature">Débosselage</div><div class="sp-feature">Redressage de carrosserie</div><div class="sp-feature">Peinture toutes teintes</div><div class="sp-feature">Retouche & polissage</div><div class="sp-feature">Traitement anti-rouille</div><div class="sp-feature">Prise en charge assurance</div></div><button class="btn-primary" onclick="openAgenda()">RDV au Garage Pilot'Expert →</button></div>
+      <div class="sp-img" aria-label="Carrosserie"><div class="ph-icon">🔧</div><div class="ph-label">Carrosserie</div></div>
+    </div>
+    <span class="section-tag">Nos interventions</span><h2 class="section-title" style="margin-bottom:2rem">CE QUE NOUS FAISONS</h2>
+    <div class="sp-grid">
+      <div class="sp-card"><div class="sp-card-icon"></div><div class="sp-card-title">Débosselage</div><div class="sp-card-text">Élimination des bosses et déformations sans reprise de peinture lorsque c'est possible.</div></div>
+      <div class="sp-card"><div class="sp-card-icon"></div><div class="sp-card-title">Peinture</div><div class="sp-card-text">Teinte au spectrophotomètre pour un rendu parfait. Peintures bi-couche et vernis certifiés.</div></div>
+      <div class="sp-card"><div class="sp-card-icon"></div><div class="sp-card-title">Remplacement de pièces</div><div class="sp-card-text">Pare-chocs, ailes, portes, capots — remplacement et ajustement professionnel.</div></div>
+      <div class="sp-card"><div class="sp-card-icon"></div><div class="sp-card-title">Traitement anti-corrosion</div><div class="sp-card-text">Protection des soubassements et traitement de l'oxydation pour durer dans le temps.</div></div>
+      <div class="sp-card"><div class="sp-card-icon"></div><div class="sp-card-title">Polissage & lustrage</div><div class="sp-card-text">Retrouvez l'éclat d'origine de votre peinture. Service haut de gamme.</div></div>
+      <div class="sp-card"><div class="sp-card-icon"></div><div class="sp-card-title">Gestion sinistres</div><div class="sp-card-text">Prise en charge complète avec votre assurance, expertise, réparation et restitution.</div></div>
+    </div>
+    <div class="cta-band" style="margin-top:60px;border-radius:4px;"><div class="cta-band-text"><div class="cta-title">DEVIS CARROSSERIE GRATUIT</div><p class="cta-sub">Réponse sous 24h, sans engagement.</p></div><button class="btn-dark" onclick="openAgenda()">RDV au Garage Pilot'Expert →</button></div>
+  </div>
+</div>
+
+<div class="page-view" id="page-mecanique">
+  <div class="service-page" style="background:var(--black)">
+    <div class="sp-hero">
+      <div class="sp-content"><span class="section-tag">Service</span><h1 class="section-title">MÉCA&shy;NIQUE</h1><p class="sp-body">Du simple entretien à la réparation complexe, nos mécaniciens diplômés et expérimentés prennent en charge votre véhicule toutes marques. Grâce à notre équipement de diagnostic électronique de dernière génération, nous identifions rapidement la panne.</p><p class="sp-body">Nous vous garantissons des pièces de qualité (origine ou équivalent certifié), des délais respectés et une transparence totale sur chaque intervention.</p><div class="sp-features"><div class="sp-feature">Révision complète</div><div class="sp-feature">Freinage</div><div class="sp-feature">Distribution</div><div class="sp-feature">Embrayage</div><div class="sp-feature">Diagnostic électronique</div><div class="sp-feature">Climatisation</div></div><button class="btn-primary" onclick="openAgenda()">RDV au Garage Pilot'Expert →</button></div>
+      <div class="sp-img" aria-label="Illustration service"><div class="ph-icon">🔧</div><div class="ph-label">Illustration service</div></div>
+    </div>
+    <span class="section-tag">Nos interventions</span><h2 class="section-title" style="margin-bottom:2rem">INTERVENTIONS MÉCANIQUES</h2>
+    <div class="sp-grid">
+      <div class="sp-card"><div class="sp-card-icon"></div><div class="sp-card-title">Révision & Entretien</div><div class="sp-card-text">Vidange, filtres, bougies, courroies. Suivez le carnet d'entretien de votre véhicule.</div></div>
+      <div class="sp-card"><div class="sp-card-icon"></div><div class="sp-card-title">Freinage</div><div class="sp-card-text">Plaquettes, disques, tambours, liquide de frein. Votre sécurité est notre priorité.</div></div>
+      <div class="sp-card"><div class="sp-card-icon"></div><div class="sp-card-title">Diagnostic électronique</div><div class="sp-card-text">Lecture et effacement des codes défaut, analyse complète des calculateurs du véhicule.</div></div>
+      <div class="sp-card"><div class="sp-card-icon"></div><div class="sp-card-title">Climatisation</div><div class="sp-card-text">Recharge de gaz réfrigérant, remplacement compresseur et entretien complet du circuit.</div></div>
+      <div class="sp-card"><div class="sp-card-icon"></div><div class="sp-card-title">Embrayage & Boîte</div><div class="sp-card-text">Remplacement embrayage, vidange boîte de vitesse manuelle et automatique.</div></div>
+      <div class="sp-card"><div class="sp-card-icon"></div><div class="sp-card-title">Suspension & Direction</div><div class="sp-card-text">Amortisseurs, rotules, cardans, triangles de suspension, géométrie.</div></div>
+    </div>
+    <div class="cta-band" style="margin-top:60px;border-radius:4px;"><div class="cta-band-text"><div class="cta-title">DIAGNOSTIC OFFERT</div><p class="cta-sub">Apportez votre véhicule, on vous dit tout.</p></div><button class="btn-dark" onclick="openAgenda()">RDV au Garage Pilot'Expert →</button></div>
+  </div>
+</div>
+
+<div class="page-view" id="page-achatvente">
+  <div class="service-page" style="background:var(--black)">
+    <div class="sp-hero">
+      <div class="sp-content"><span class="section-tag">Service</span><h1 class="section-title">ACHAT<br><span style="color:var(--orange)">VENTE</span></h1><p class="sp-body">Vous souhaitez vendre votre véhicule ou en acheter un d'occasion en toute confiance ? Garage Pilot'Expert est votre partenaire. Nous achetons votre véhicule au juste prix et proposons des véhicules d'occasion soigneusement sélectionnés et contrôlés.</p><p class="sp-body">Chaque véhicule vendu par nos soins passe par un contrôle mécanique et carrosserie complet. Transparence totale sur l'historique du véhicule.</p><div class="sp-features"><div class="sp-feature">Reprise de votre véhicule</div><div class="sp-feature">Estimation gratuite</div><div class="sp-feature">Véhicules contrôlés</div><div class="sp-feature">Garantie disponible</div><div class="sp-feature">Financement</div><div class="sp-feature">Toutes marques</div></div><button class="btn-primary" onclick="openAgenda()">RDV au Garage Pilot'Expert →</button></div>
+      <div class="sp-img" aria-label="Illustration service"><div class="ph-icon">🔧</div><div class="ph-label">Illustration service</div></div>
+    </div>
+    <span class="section-tag">Pourquoi nous choisir</span><h2 class="section-title" style="margin-bottom:2rem">ACHETER EN <span style="color:var(--orange)">CONFIANCE</span></h2>
+    <div class="sp-grid">
+      <div class="sp-card"><div class="sp-card-icon"></div><div class="sp-card-title">Inspection complète</div><div class="sp-card-text">Chaque véhicule d'occasion est inspecté mécaniquement et en carrosserie avant mise en vente.</div></div>
+      <div class="sp-card"><div class="sp-card-icon"></div><div class="sp-card-title">Estimation juste</div><div class="sp-card-text">Nous vous proposons le prix du marché pour votre reprise, sans négociation stressante.</div></div>
+      <div class="sp-card"><div class="sp-card-icon"></div><div class="sp-card-title">Dossier complet</div><div class="sp-card-text">Historique d'entretien, contrôle technique, carnet complet fournis à l'achat.</div></div>
+      <div class="sp-card"><div class="sp-card-icon"></div><div class="sp-card-title">Garantie</div><div class="sp-card-text">Options de garantie disponibles pour votre tranquillité d'esprit après l'achat.</div></div>
+      <div class="sp-card"><div class="sp-card-icon"></div><div class="sp-card-title">Financement</div><div class="sp-card-text">Possibilités de financement et d'échelonnement, renseignez-vous auprès de notre équipe.</div></div>
+      <div class="sp-card"><div class="sp-card-icon"></div><div class="sp-card-title">Suivi après-vente</div><div class="sp-card-text">Notre équipe reste disponible après la transaction pour tout question ou besoin.</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="page-view" id="page-parebrise">
+  <div class="service-page" style="background:var(--black)">
+    <div class="sp-hero">
+      <div class="sp-content"><span class="section-tag">Service</span><h1 class="section-title">PARE-<br><span style="color:var(--orange)">BRISE</span></h1><p class="sp-body">Un impact, une fissure, un pare-brise fissuré ? Intervenez vite ! Garage Pilot'Expert réalise le remplacement ou la réparation de votre pare-brise rapidement, avec prise en charge par votre assurance dans la plupart des cas.</p><p class="sp-body">Nous travaillons avec des vitrages conformes aux normes d'origine (OEM) et garantissons chaque intervention. Rouleau de vitrage, glaces latérales, lunette arrière — nous intervenons sur toutes les vitreries.</p><div class="sp-features"><div class="sp-feature">Remplacement rapide</div><div class="sp-feature">Réparation d'impact</div><div class="sp-feature">Prise en charge assurance</div><div class="sp-feature">Vitrage OEM</div><div class="sp-feature">Glaces latérales</div><div class="sp-feature">Lunette arrière</div></div><button class="btn-primary" onclick="openAgenda()">RDV au Garage Pilot'Expert →</button></div>
+      <div class="sp-img" aria-label="Illustration service"><div class="ph-icon">🔧</div><div class="ph-label">Illustration service</div></div>
+    </div>
+    <span class="section-tag">Ce qu'on propose</span><h2 class="section-title" style="margin-bottom:2rem">NOS PRESTATIONS <span style="color:var(--orange)">VITRAGE</span></h2>
+    <div class="sp-grid">
+      <div class="sp-card"><div class="sp-card-icon"></div><div class="sp-card-title">Remplacement pare-brise</div><div class="sp-card-text">Dépose et pose professionnelle, recalibrage caméra de sécurité si nécessaire.</div></div>
+      <div class="sp-card"><div class="sp-card-icon"></div><div class="sp-card-title">Réparation d'impact</div><div class="sp-card-text">Traitement des petits impacts et étoiles avant qu'ils se propagent — rapide et économique.</div></div>
+      <div class="sp-card"><div class="sp-card-icon"></div><div class="sp-card-title">Glaces latérales</div><div class="sp-card-text">Remplacement de vitre de porte cassée ou brisée, toutes marques et modèles.</div></div>
+      <div class="sp-card"><div class="sp-card-icon"></div><div class="sp-card-title">Lunette arrière</div><div class="sp-card-text">Remplacement avec fil chauffant intégré et antenne radio si équipé.</div></div>
+      <div class="sp-card"><div class="sp-card-icon"></div><div class="sp-card-title">Dossier assurance</div><div class="sp-card-text">Nous gérons les démarches avec votre compagnie d'assurance pour vous faciliter la vie.</div></div>
+      <div class="sp-card"><div class="sp-card-icon"></div><div class="sp-card-title">Intervention rapide</div><div class="sp-card-text">Délai d'intervention court. Repartez le jour même dans la plupart des cas.</div></div>
+    </div>
+    <div class="cta-band" style="margin-top:60px;border-radius:4px;"><div class="cta-band-text"><div class="cta-title">PRIS EN CHARGE PAR VOTRE ASSURANCE</div><p class="cta-sub">Zéro franchise dans de nombreux cas. Contactez-nous pour vérifier.</p></div><button class="btn-dark" onclick="openAgenda()">RDV au Garage Pilot'Expert →</button></div>
+  </div>
+</div>
+
+<div class="page-view" id="page-pieces">
+  <div class="service-page" style="background:var(--black)">
+    <div class="sp-hero">
+      <div class="sp-content"><span class="section-tag">Service</span><h1 class="section-title">PIÈCES<br><span style="color:var(--orange)">AUTO</span></h1><p class="sp-body">Garage Pilot'Expert met à votre disposition un large stock de pièces automobiles d'origine et équivalentes certifiées. Que vous soyez bricoleur ou souhaitiez confier le montage à nos experts, nous avons ce qu'il vous faut.</p><p class="sp-body">Pièces mécaniques, pièces de carrosserie, consommables, accessoires — nous sourcions nos pièces auprès de fournisseurs de confiance et garantissons leur qualité.</p><div class="sp-features"><div class="sp-feature">Pièces d'origine (OEM)</div><div class="sp-feature">Équivalent certifié</div><div class="sp-feature">Montage disponible</div><div class="sp-feature">Toutes marques</div><div class="sp-feature">Pièces carrosserie</div><div class="sp-feature">Consommables</div></div><button class="btn-primary" onclick="openAgenda()">RDV au Garage Pilot'Expert →</button></div>
+      <div class="sp-img" aria-label="Illustration service"><div class="ph-icon">🔧</div><div class="ph-label">Illustration service</div></div>
+    </div>
+    <span class="section-tag">Notre stock</span><h2 class="section-title" style="margin-bottom:2rem">LES PIÈCES QU'IL <span style="color:var(--orange)">VOUS FAUT</span></h2>
+    <div class="sp-grid">
+      <div class="sp-card"><div class="sp-card-icon"></div><div class="sp-card-title">Pièces mécaniques</div><div class="sp-card-text">Freins, embrayage, distribution, amortisseurs, filtres, bougies… tout pour l'entretien.</div></div>
+      <div class="sp-card"><div class="sp-card-icon"></div><div class="sp-card-title">Pièces carrosserie</div><div class="sp-card-text">Pare-chocs, ailes, portes, capots, rétroviseurs. Pièces neuves et d'occasion disponibles.</div></div>
+      <div class="sp-card"><div class="sp-card-icon"></div><div class="sp-card-title">Éclairage</div><div class="sp-card-text">Optiques, feux, ampoules et kits LED pour tous modèles de véhicules.</div></div>
+      <div class="sp-card"><div class="sp-card-icon"></div><div class="sp-card-title">Pneumatiques</div><div class="sp-card-text">Large choix de pneus été, hiver et 4 saisons, montage et équilibrage sur place.</div></div>
+      <div class="sp-card"><div class="sp-card-icon"></div><div class="sp-card-title">Consommables</div><div class="sp-card-text">Huiles moteur, liquides de refroidissement, de frein, lave-glace et autres fluides.</div></div>
+      <div class="sp-card"><div class="sp-card-icon"></div><div class="sp-card-title">Montage inclus</div><div class="sp-card-text">Pièce achetée chez nous ? Nos mécaniciens peuvent procéder au montage directement.</div></div>
+    </div>
+    <div class="cta-band" style="margin-top:60px;border-radius:4px;"><div class="cta-band-text"><div class="cta-title">BESOIN D'UNE PIÈCE SPÉCIFIQUE ?</div><p class="cta-sub">Contactez-nous avec la référence, on la trouve pour vous.</p></div><button class="btn-dark" onclick="openAgenda()">RDV au Garage Pilot'Expert →</button></div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand"><div class="footer-brand-logo"><img src="logo.png" alt="Garage Pilot'Expert" style="height:50px;object-fit:contain;filter:brightness(1.1);"></div><p>Carrosserie, mécanique, pare-brise, achat/vente et pièces auto. Une équipe avec plus de 20 ans d'expérience à votre service à La Courneuve.</p></div>
+    <div class="footer-col"><div class="footer-col-title">Services</div><ul><li><a href="#" onclick="showPage('carrosserie'); return false;">Carrosserie</a></li><li><a href="#" onclick="showPage('mecanique'); return false;">Mécanique</a></li><li><a href="#" onclick="showPage('achatvente'); return false;">Achat / Vente</a></li><li><a href="#" onclick="showPage('parebrise'); return false;">Pare-brise</a></li><li><a href="#" onclick="showPage('pieces'); return false;">Pièces Auto</a></li></ul></div>
+    <div class="footer-col"><div class="footer-col-title">Horaires</div><ul><li><a href="#">Lundi – Vendredi</a></li><li><a href="#">8h00 – 18h30</a></li><li><a href="#">Samedi : 9h – 13h</a></li><li><a href="#">Dimanche : Fermé</a></li></ul></div>
+    <div class="footer-col"><div class="footer-col-title">Contact</div><ul><li><a href="#">57 Av. Jean Mermoz</a></li><li><a href="#">93120 La Courneuve</a></li><li><a href="tel:+33148380000">01 48 38 00 00</a></li><li><a href="mailto:contact@garagepilotexpert.fr">contact@garagepilotexpert.fr</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><p class="footer-copy">© 2025 <strong>Garage Pilot'Expert</strong> — 57 Avenue Jean Mermoz, 93120 La Courneuve. Tous droits réservés.</p><p class="footer-copy">Conçu avec ♥ pour l'excellence automobile</p></div>
+</footer>
+
+<script>
+  const EMAILJS_PUBLIC_KEY = '9GptUk3IdS-NebOXG';
+  const EMAILJS_SERVICE_ID = 'service_fm9b8nt';
+  const EMAILJS_TEMPLATE_INTERNAL = 'template_1xkouje';
+  const EMAILJS_TEMPLATE_CLIENT = 'template_yy3lr52';
+
+  function showPage(name) {
+    document.querySelectorAll('.page-view').forEach(p => p.classList.remove('active'));
+    const target = document.getElementById('page-' + name);
+    if (target) {
+      target.classList.add('active');
+      window.scrollTo(0, 0);
+    }
+    document.getElementById('mainNav').classList.remove('nav-mobile-open');
+  }
+
+  function toggleMenu() {
+    document.getElementById('mainNav').classList.toggle('nav-mobile-open');
+  }
+
+  window.addEventListener('scroll', () => {
+    const nav = document.getElementById('mainNav');
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  function buildFullName(form) {
+    const firstname = (form.querySelector('[name="firstname"]')?.value || '').trim();
+    const lastname = (form.querySelector('[name="lastname"]')?.value || '').trim();
+    const hiddenName = form.querySelector('[name="name"]');
+    if (hiddenName) {
+      hiddenName.value = `${firstname} ${lastname}`.trim() || firstname || lastname;
+    }
+  }
+
+  function resetMessages(successId, errorId) {
+    const successEl = document.getElementById(successId);
+    const errorEl = document.getElementById(errorId);
+    if (successEl) successEl.style.display = 'none';
+    if (errorEl) errorEl.style.display = 'none';
+  }
+
+  function sendBothEmails(formElement, successId, errorId) {
+    resetMessages(successId, errorId);
+    buildFullName(formElement);
+
+    return emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_INTERNAL, formElement)
+      .then(function() {
+        return emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_CLIENT, formElement);
+      })
+      .then(function() {
+        formElement.style.display = 'none';
+        const successEl = document.getElementById(successId);
+        if (successEl) successEl.style.display = 'block';
+      })
+      .catch(function(error) {
+        console.error('EmailJS error:', error);
+        const errorEl = document.getElementById(errorId);
+        if (errorEl) errorEl.style.display = 'block';
+      });
+  }
+
+  function submitForm(e) {
+    e.preventDefault();
+    const form = document.getElementById('contactForm');
+    sendBothEmails(form, 'formSuccess', 'formError');
+  }
+
+  function openAgenda() {
+    const m = document.getElementById('agendaModal');
+    m.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeAgenda() {
+    const m = document.getElementById('agendaModal');
+    m.style.display = 'none';
+    document.body.style.overflow = '';
+  }
+
+  function submitAgenda(e) {
+    e.preventDefault();
+    const form = document.getElementById('agendaForm');
+    sendBothEmails(form, 'agendaSuccess', 'agendaError');
+  }
+
+  window.addEventListener('DOMContentLoaded', function(){
+    const agendaModal = document.getElementById('agendaModal');
+    if (agendaModal) {
+      agendaModal.addEventListener('click', function(e){ if(e.target===this) closeAgenda(); });
+    }
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script>
+(function () {
+  emailjs.init({
+    publicKey: '9GptUk3IdS-NebOXG'
+  });
+})();
+</script>
+
+<div id="agendaModal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.75);backdrop-filter:blur(6px);align-items:center;justify-content:center;">
+  <div style="background:var(--dark2);border:1px solid rgba(245,130,10,0.3);border-radius:6px;max-width:500px;width:90%;padding:2.5rem;position:relative;box-shadow:0 20px 60px rgba(0,0,0,0.6);">
+    <button onclick="closeAgenda()" style="position:absolute;top:1rem;right:1rem;background:none;border:none;color:var(--gray);font-size:1.4rem;cursor:pointer;line-height:1;">✕</button>
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:2rem;">
+      <div style="width:48px;height:48px;border-radius:4px;background:rgba(245,130,10,0.12);border:1px solid rgba(245,130,10,0.35);display:flex;align-items:center;justify-content:center;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="1.6" width="24" height="24"><rect x="3" y="4" width="18" height="18" rx="2"></rect><path d="M16 2v4M8 2v4M3 10h18"></path><path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"></path></svg>
+      </div>
+      <div>
+        <div style="font-family:var(--font-display);font-size:1.5rem;letter-spacing:1px;">PRENDRE RDV</div>
+        <div style="font-size:0.8rem;color:var(--gray);letter-spacing:2px;text-transform:uppercase;">Garage Pilot'Expert – La Courneuve</div>
+      </div>
+    </div>
+
+    <form id="agendaForm" onsubmit="submitAgenda(event)">
+      <input type="hidden" name="name">
+      <input type="hidden" name="message" value="Demande de rendez-vous via le site web.">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;">
+        <div class="form-group"><label>Prénom</label><input type="text" name="firstname" placeholder="Jean" required></div>
+        <div class="form-group"><label>Nom</label><input type="text" name="lastname" placeholder="Dupont" required></div>
+      </div>
+      <div class="form-group" style="margin-bottom:1rem;"><label>Email</label><input type="email" name="email" placeholder="jean.dupont@email.com" required></div>
+      <div class="form-group" style="margin-bottom:1rem;"><label>Téléphone</label><input type="tel" name="phone" placeholder="06 XX XX XX XX" required></div>
+      <div class="form-group" style="margin-bottom:1rem;">
+        <label>Service souhaité</label>
+        <select name="service" required>
+          <option value="">-- Choisir --</option>
+          <option>Carrosserie</option>
+          <option>Mécanique</option>
+          <option>Achat / Vente</option>
+          <option>Pare-brise</option>
+          <option>Pièces Auto</option>
+          <option>Autre</option>
+        </select>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.5rem;">
+        <div class="form-group"><label>Date souhaitée</label><input type="date" name="date" required></div>
+        <div class="form-group">
+          <label>Heure souhaitée</label>
+          <select name="time" required>
+            <option value="">-- Heure --</option>
+            <option>08h00</option><option>09h00</option><option>10h00</option>
+            <option>11h00</option><option>14h00</option><option>15h00</option>
+            <option>16h00</option><option>17h00</option><option>18h00</option>
+          </select>
+        </div>
+      </div>
+      <button type="submit" class="form-submit">Confirmer mon rendez-vous →</button>
+    </form>
+
+    <div id="agendaSuccess" class="form-success" style="display:none;text-align:center;padding:1.5rem 0;">
+      <svg viewBox="0 0 48 48" fill="none" stroke="var(--orange)" stroke-width="2" width="52" height="52" style="margin:0 auto 1rem;display:block;">
+        <circle cx="24" cy="24" r="22"></circle>
+        <path d="M14 25l6 6 14-14"></path>
+      </svg>
+      <p>Votre demande de rendez-vous a bien été envoyée.<br>Nous vous recontacterons rapidement.</p>
+    </div>
+    <div id="agendaError" class="form-error">Une erreur est survenue pendant l'envoi du rendez-vous. Vérifie les identifiants EmailJS puis réessaie.</div>
+  </div>
+</div>
+
+</body>
+</html>
