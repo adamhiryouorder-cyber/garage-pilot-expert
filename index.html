@@ -756,7 +756,7 @@
           <label>Votre message</label>
           <textarea name="message" placeholder="Décrivez votre demande, le type de véhicule, la nature de la panne…" required></textarea>
         </div>
-        <button type="submit" class="form-submit">Envoyer ma demande →</button>
+        <button type="submit" class="form-submit" id="contactSubmitBtn">Envoyer ma demande →</button>
       </form>
       <div class="form-success" id="formSuccess"><div class="success-icon">✅</div><p>Merci pour votre message !<br>Nous vous recontacterons dans les 24h.</p></div>
       <div class="form-error" id="formError">Une erreur est survenue pendant l'envoi. Vérifie les identifiants EmailJS puis réessaie.</div>
@@ -937,10 +937,32 @@
   }
 
   function submitForm(e) {
-    e.preventDefault();
-    const form = document.getElementById('contactForm');
-    sendBothEmails(form, 'formSuccess', 'formError');
+  e.preventDefault();
+
+  const form = document.getElementById('contactForm');
+  const btn = document.getElementById('contactSubmitBtn');
+
+  if (btn) {
+    btn.disabled = true;
+    btn.textContent = 'Envoi en cours...';
+    btn.style.opacity = '0.7';
+    btn.style.cursor = 'not-allowed';
   }
+
+  sendBothEmails(form, 'formSuccess', 'formError')
+    .then(function() {
+    })
+    .catch(function() {
+    })
+    .finally(function() {
+      if (btn) {
+        btn.disabled = false;
+        btn.textContent = 'Envoyer ma demande →';
+        btn.style.opacity = '1';
+        btn.style.cursor = 'pointer';
+      }
+    });
+}
 
   function openAgenda() {
     const m = document.getElementById('agendaModal');
@@ -955,10 +977,34 @@
   }
 
   function submitAgenda(e) {
-    e.preventDefault();
-    const form = document.getElementById('agendaForm');
-    sendBothEmails(form, 'agendaSuccess', 'agendaError');
+  e.preventDefault();
+
+  const form = document.getElementById('agendaForm');
+  const btn = document.getElementById('agendaSubmitBtn');
+
+  if (btn) {
+    btn.disabled = true;
+    btn.textContent = 'Envoi en cours...';
+    btn.style.opacity = '0.7';
+    btn.style.cursor = 'not-allowed';
   }
+
+  sendBothEmails(form, 'agendaSuccess', 'agendaError')
+    .then(function() {
+      // rien à faire ici, le succès est déjà géré
+    })
+    .catch(function() {
+      // rien à faire ici, l'erreur est déjà gérée
+    })
+    .finally(function() {
+      if (btn) {
+        btn.disabled = false;
+        btn.textContent = 'Confirmer mon rendez-vous →';
+        btn.style.opacity = '1';
+        btn.style.cursor = 'pointer';
+      }
+    });
+}
 
   window.addEventListener('DOMContentLoaded', function(){
     const agendaModal = document.getElementById('agendaModal');
@@ -1021,7 +1067,7 @@
           </select>
         </div>
       </div>
-      <button type="submit" class="form-submit">Confirmer mon rendez-vous →</button>
+      <button type="submit" class="form-submit" id="agendaSubmitBtn">Confirmer mon rendez-vous →</button>
     </form>
 
     <div id="agendaSuccess" class="form-success" style="display:none;text-align:center;padding:1.5rem 0;">
